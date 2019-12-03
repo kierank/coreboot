@@ -1,0 +1,99 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+chip soc/intel/cannonlake
+	register "common_soc_config" = "{
+		.chipset_lockdown = CHIPSET_LOCKDOWN_COREBOOT,
+	}"
+
+	register "SerialIoDevMode" = "{
+		[PchSerialIoIndexUART0] = PchSerialIoPci,
+	}"
+
+	# SPS doesn't support all commands issued by FSP
+	register "DisableHeciRetry" = "1"
+
+	register "eist_enable" = "1"
+
+	device cpu_cluster 0 on
+		device lapic 0 on end
+	end
+	device domain 0 on
+		device pci 00.0 on  end	# Host Bridge
+		device pci 01.0 on	# PCIe graphics
+			smbios_slot_desc "SlotTypePciExpressGen3X16" "SlotLengthOther"
+					 "SLOT6" "SlotDataBusWidth8X"
+		end
+		device pci 01.1 on	# PCIe graphics
+			smbios_slot_desc "SlotTypePciExpressGen3X8" "SlotLengthOther"
+					 "SLOT5" "SlotDataBusWidth8X"
+		end
+		device pci 02.0 on  end	# iGPU
+		device pci 04.0 on	# SA Thermal
+			register "Device4Enable" = "1"
+		end
+		device pci 08.0 on  end	# GMM
+		device pci 12.0 on  end	# PCH Thermal
+		device pci 14.0 on  end	# USB xHCI
+		device pci 14.1 off end	# USB xDCI (OTG)
+		device pci 14.2 on  end	# PCH Shared SRAM
+		device pci 15.0 on  end	# I2C #0
+		device pci 15.1 on  end	# I2C #1
+		device pci 16.0 on  end	# MEI #1
+		device pci 16.1 on  end	# MEI #2
+		device pci 16.2 off end	# ME IDE-R
+		device pci 16.3 off end	# ME KT
+		device pci 16.4 on  end	# MEI #3
+		device pci 17.0 on	# SATA
+			register "SataSalpSupport" = "1"
+			register "SataPortsEnable" = "{
+				[0] = 1,
+				[1] = 1,
+				[2] = 1,
+				[3] = 1,
+				[4] = 1,
+				[5] = 1,
+				[6] = 1,
+				[7] = 1,
+			}"
+			register "satapwroptimize" = "1"
+		end
+		device pci 1e.0 on  end	# UART #0
+		device pci 1f.0 on	# LPC Bridge
+			register "gen1_dec" = "0x000c0ca1"	# IPMI KCS
+			chip drivers/ipmi
+				# On cold boot the BMC needs some time to start the IPMI service
+				register "wait_for_bmc" = "0"
+				register "bmc_boot_timeout" = "60"
+				device pnp ca2.0 on end	# IPMI KCS
+			end
+			chip superio/common
+				device pnp 4e.0 on
+					chip superio/aspeed/ast2400
+						register "use_espi" = "1"
+						device pnp 4e.2 on	# SUART1
+							io  0x60 = 0x3f8
+							irq 0x70 = 4
+						end
+						device pnp 4e.3 on	# SUART2
+							io  0x60 = 0x2f8
+							irq 0x70 = 3
+						end
+						device pnp 4e.4 off end	# SWC
+						device pnp 4e.5 off end	# KBC
+						device pnp 4e.7 off end	# GPIO
+						device pnp 4e.b off end	# SUART3
+						device pnp 4e.c off end	# SUART4
+						device pnp 4e.d off end	# iLPC2AHB
+						device pnp 4e.e off end	# Mailbox
+					end
+				end
+			end
+		end
+		device pci 1f.1 on     end # P2SB
+		device pci 1f.2 hidden end # PMC
+		device pci 1f.3 off    end # Intel HDA
+		device pci 1f.4 on     end # SMBus
+		device pci 1f.5 on     end # PCH SPI
+		device pci 1f.6 off    end # Intel GbE
+	end
+end

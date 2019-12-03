@@ -661,6 +661,11 @@ UP MAINBOARDS
 S:	Orphan
 F:	src/mainboard/up/
 
+SUPERMICRO X11-LGA1151V2-SERIES
+M:	Christian Walter <christian.walter@9elements.com>
+S:	Maintained
+F:	src/mainboard/supermicro/x11-lga1151v2-series/
+
 ################################################################################
 # Architectures
 ################################################################################
