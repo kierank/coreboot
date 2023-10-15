@@ -66,8 +66,8 @@ static const struct region_name region_names[MAX_REGIONS] = {
 	{ "IE", "ie", "flashregion_10_ie.bin", "SI_IE" },
 	{ "10GbE_0", "10gbe_0", "flashregion_11_10gbe0.bin", "SI_10GBE0" },
 	{ "10GbE_1", "10gbe_1", "flashregion_12_10gbe1.bin", "SI_10GBE1" },
-	{ "Reserved", "res13", "flashregion_13_reserved.bin", NULL },
-	{ "Reserved", "res14", "flashregion_14_reserved.bin", NULL },
+	{ "Reserved", "res13", "flashregion_13_reserved.bin", "SI_RESERVED" },
+	{ "Reserved", "res14", "flashregion_14_reserved.bin", "SI_RESERVED" },
 	{ "PTT", "ptt", "flashregion_15_ptt.bin", "SI_PTT" },
 };
 
