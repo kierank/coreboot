@@ -8,7 +8,7 @@
 
 static void early_config_superio(void)
 {
-	const pnp_devfn_t serial_dev = PNP_DEV(0x4e, AST2400_SUART1);
+	const pnp_devfn_t serial_dev = PNP_DEV(0x2e, AST2400_SUART1);
 	if (CONFIG(CONSOLE_SERIAL))
 		aspeed_enable_serial(serial_dev, CONFIG_TTYS0_BASE);
 }
