@@ -55,6 +55,9 @@ chip soc/intel/cannonlake
 	# USB OC6/7 - not connected
 
 	device domain 0 on
+		device pci 02.0 off  end # iGPU
+		device pci 04.0 off  end # SA Thermal
+		device pci 16.1 off  end # MEI #2
 		device pci 1b.0 on	# PCIe RP #22: LAN1
 			register "PcieRpEnable[21]" = "1"
 			register "PcieRpLtrEnable[21]" = "1"
