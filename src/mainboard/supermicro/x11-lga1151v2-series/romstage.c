@@ -21,7 +21,7 @@ static const struct cnl_mb_cfg x11_lga1151v2_series_memcfg = {
 	.rcomp_targets = { 60, 26, 20, 20, 26 },
 
 	/* DIMM slots are placed back-to-back */
-	.dq_pins_interleaved = 1,
+	.dq_pins_interleaved = 0,
 
 	/* Use DDR4 Vref mapping: VREF_CA controls CH0, VREF_DQ_B controls CH1 */
 	.vref_ca_config = 2,
