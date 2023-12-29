@@ -55,13 +55,13 @@ chip soc/intel/cannonlake
 	# USB OC6/7 - not connected
 
 	device domain 0 on
-		device pci 1b.6 on	# PCIe RP #23: LAN3
+		device pci 1b.0 on	# PCIe RP #22: LAN1
+			register "PcieRpEnable[21]" = "1"
+			register "PcieRpLtrEnable[21]" = "1"
+		end
+		device pci 1b.6 on	# PCIe RP #23: LAN2
 			register "PcieRpEnable[22]" = "1"
 			register "PcieRpLtrEnable[22]" = "1"
-		end
-		device pci 1b.7 on	# PCIe RP #24: LAN4
-			register "PcieRpEnable[23]" = "1"
-			register "PcieRpLtrEnable[23]" = "1"
 		end
 		device pci 1c.1 on	# PCIe RP #2:  Aspeed AST2500 BMC
 			register "PcieRpEnable[1]" = "1"
