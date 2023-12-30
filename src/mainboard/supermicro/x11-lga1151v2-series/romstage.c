@@ -6,7 +6,7 @@
 static const struct cnl_mb_cfg x11_lga1151v2_series_memcfg = {
 	/* Access memory info through SMBUS */
 	.spd[0] = {
-		.read_type = READ_SMBUS,
+		.read_type = NOT_EXISTING,
 		.spd_spec = { .spd_smbus_address = 0x50 << 1 },
 	},
 	.spd[1] = {
@@ -14,7 +14,7 @@ static const struct cnl_mb_cfg x11_lga1151v2_series_memcfg = {
 		.spd_spec = { .spd_smbus_address = 0x51 << 1 },
 	},
 	.spd[2] = {
-		.read_type = READ_SMBUS,
+		.read_type = NOT_EXISTING,
 		.spd_spec = { .spd_smbus_address = 0x52 << 1 },
 	},
 	.spd[3] = {
@@ -42,11 +42,16 @@ void mainboard_memory_init_params(FSPM_UPD *memupd)
 {
     FSP_M_CONFIG *mem_cfg = &memupd->FspmConfig;
 
-    mem_cfg->MemorySpdDataLen = 0x200;
-	mem_cfg->MemorySpdPtr00 = 0;
-	mem_cfg->MemorySpdPtr10 = 0;
-	mem_cfg->MemorySpdPtr01 = 0;
-	mem_cfg->MemorySpdPtr11 = 0;
+	struct spd_block blk = {
+		.addr_map = { 0x50, 0x51, 0x52, 0x53, },
+	};
+	get_spd_smbus(&blk);
+
+	mem_cfg->MemorySpdDataLen = blk.len;
+	mem_cfg->MemorySpdPtr00 = (uintptr_t)blk.spd_array[0];
+	mem_cfg->MemorySpdPtr10 = (uintptr_t)blk.spd_array[2];
+	mem_cfg->MemorySpdPtr01 = (uintptr_t)blk.spd_array[1];
+	mem_cfg->MemorySpdPtr11 = (uintptr_t)blk.spd_array[3];
 	mem_cfg->UserBd = BOARD_TYPE_SERVER;
 
 	cannonlake_memcfg_init(mem_cfg, &x11_lga1151v2_series_memcfg);
