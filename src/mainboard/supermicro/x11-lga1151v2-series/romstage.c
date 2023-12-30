@@ -40,7 +40,7 @@ static const struct cnl_mb_cfg x11_lga1151v2_series_memcfg = {
 
 void mainboard_memory_init_params(FSPM_UPD *memupd)
 {
-    FSP_M_CONFIG *mem_cfg = &mupd->FspmConfig;
+    FSP_M_CONFIG *mem_cfg = &memupd->FspmConfig;
 
     mem_cfg->MemorySpdDataLen = 0x200;
 	mem_cfg->MemorySpdPtr00 = 0;
