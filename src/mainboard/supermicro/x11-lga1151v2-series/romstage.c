@@ -44,15 +44,13 @@ void mainboard_memory_init_params(FSPM_UPD *memupd)
     FSP_M_CONFIG *mem_cfg = &memupd->FspmConfig;
 
 	struct spd_block blk = {
-		.addr_map = { 0x50, 0x51, 0x52, 0x53, },
+		.addr_map = { 0x50, 0x52 },
 	};
 	get_spd_smbus(&blk);
 
 	mem_cfg->MemorySpdDataLen = blk.len;
 	mem_cfg->MemorySpdPtr00 = (uintptr_t)blk.spd_array[0];
-	mem_cfg->MemorySpdPtr10 = (uintptr_t)blk.spd_array[2];
-	mem_cfg->MemorySpdPtr01 = (uintptr_t)blk.spd_array[1];
-	mem_cfg->MemorySpdPtr11 = (uintptr_t)blk.spd_array[3];
+	mem_cfg->MemorySpdPtr10 = (uintptr_t)blk.spd_array[1];
 	mem_cfg->UserBd = BOARD_TYPE_SERVER;
 
 	cannonlake_memcfg_init(mem_cfg, &x11_lga1151v2_series_memcfg);
