@@ -45,7 +45,7 @@ void mainboard_memory_init_params(FSPM_UPD *memupd)
     mem_cfg->MemorySpdDataLen = 0x200;
 	mem_cfg->MemorySpdPtr00 = 0;
 	mem_cfg->MemorySpdPtr10 = 0;
-	mem_cfg->MemorySpdPtr01 = 0];
+	mem_cfg->MemorySpdPtr01 = 0;
 	mem_cfg->MemorySpdPtr11 = 0;
 	mem_cfg->UserBd = BOARD_TYPE_SERVER;
 
