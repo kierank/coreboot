@@ -40,5 +40,14 @@ static const struct cnl_mb_cfg x11_lga1151v2_series_memcfg = {
 
 void mainboard_memory_init_params(FSPM_UPD *memupd)
 {
-	cannonlake_memcfg_init(&memupd->FspmConfig, &x11_lga1151v2_series_memcfg);
+    FSP_M_CONFIG *mem_cfg = &mupd->FspmConfig;
+
+    mem_cfg->MemorySpdDataLen = 0x200;
+	mem_cfg->MemorySpdPtr00 = 0;
+	mem_cfg->MemorySpdPtr10 = 0;
+	mem_cfg->MemorySpdPtr01 = 0];
+	mem_cfg->MemorySpdPtr11 = 0;
+	mem_cfg->UserBd = BOARD_TYPE_SERVER;
+
+	cannonlake_memcfg_init(mem_cfg, &x11_lga1151v2_series_memcfg);
 }
