@@ -9,9 +9,17 @@ static const struct cnl_mb_cfg x11_lga1151v2_series_memcfg = {
 		.read_type = READ_SMBUS,
 		.spd_spec = { .spd_smbus_address = 0x50 << 1 },
 	},
+	.spd[1] = {
+		.read_type = NOT_EXISTING,
+		.spd_spec = { .spd_smbus_address = 0x51 << 1 },
+	},
 	.spd[2] = {
 		.read_type = READ_SMBUS,
 		.spd_spec = { .spd_smbus_address = 0x52 << 1 },
+	},
+	.spd[3] = {
+		.read_type = NOT_EXISTING,
+		.spd_spec = { .spd_smbus_address = 0x53 << 1 },
 	},
 
 	/* Rcomp resistors on CFL-S are located on the CPU itself */
