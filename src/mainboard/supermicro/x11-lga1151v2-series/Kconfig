@@ -39,6 +39,9 @@ config OVERRIDE_DEVICETREE
 config DIMM_MAX
 	default 2
 
+config DIMMS_PER_CHANNEL
+        default 1
+
 config DIMM_SPD_SIZE
 	default 512
 
