@@ -2,6 +2,7 @@
 
 #include <soc/cnl_memcfg_init.h>
 #include <soc/romstage.h>
+#include <spd_bin.h>
 
 static const struct cnl_mb_cfg x11_lga1151v2_series_memcfg = {
 	/* Access memory info through SMBUS */
